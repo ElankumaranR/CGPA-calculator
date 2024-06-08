@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    background-image: url("image.png");
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+}
+
+input[type="number"],
+input[type="text"],
+select {
+    width: calc(100% - 20px);
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.result-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.result-section h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    font-size: 18px;
+}
+
+.semester-container {
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.semester-container h3 {
+    margin-bottom: 10px;
+    color: #4CAF50;
+    font-size: 20px;
+}
+
+.semester-container p {
+    margin-bottom: 10px;
+    color: #555;
+    font-size: 14px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>CGPA Calculator</h1>
+        <div>
+            <label for="numSemesters">Number of Semesters:</label>
+            <input type="number" id="numSemesters" min="1">
+            <button onclick="addSemesterContainer()">Add Semesters</button>
+        </div>
+        <div id="SemesterContainer" style="display: none;"></div>
+    </div>
+
+    <script>
+        function addSemesterContainer() {
+            var numSemesters = parseInt(document.getElementById("numSemesters").value);
+            var semesterContainer = document.getElementById("SemesterContainer");
+            semesterContainer.style.display = "block";
+            semesterContainer.innerHTML = "";
+
+            for (var i = 1; i <= numSemesters; i++) {
+                var semesterDiv = document.createElement("div");
+                semesterDiv.classList.add("semester-container");
+                semesterDiv.innerHTML = `
+                    <h3>Semester ${i}</h3>
+                    <div>
+                        <label for="numCoursesSemester${i}">Number of Courses for Semester ${i}:</label>
+                        <input type="number" id="numCoursesSemester${i}" min="1">
+                        <button onclick="addCourseContainer(${i})">Add Courses</button>
+                    </div>
+                    <div id="courseContainer${i}"></div>
+                    <div id="resultContainer${i}" class="result-section"></div>
+                `;
+                semesterContainer.appendChild(semesterDiv);
+            }
+        }
+
+        function addCourseContainer(semesterIndex) {
+            var numCourses = parseInt(document.getElementById("numCoursesSemester" + semesterIndex).value);
+            var courseContainer = document.getElementById("courseContainer" + semesterIndex);
+
+            courseContainer.innerHTML = "";
+
+            for (var i = 1; i <= numCourses; i++) {
+                var courseDiv = document.createElement("div");
+                courseDiv.innerHTML = `
+                    <h4>Course ${i}</h4>
+                    <label for="courseNameSemester${semesterIndex}_${i}">Course Name:</label>
+                    <input type="text" id="courseNameSemester${semesterIndex}_${i}">
+                    <label for="creditSemester${semesterIndex}_${i}">Credit:</label>
+                    <input type="number" id="creditSemester${semesterIndex}_${i}" min="1">
+                    <label for="gradeSemester${semesterIndex}_${i}">Grade:</label>
+                    <select id="gradeSemester${semesterIndex}_${i}">
+                        <option value="10">O</option>
+                        <option value="9.0">A+</option>
+                        <option value="8.0">A</option>
+                        <option value="7.0">B+</option>
+                        <option value="6.0">B</option>
+                        <option value="5.0">C</option>
+                        <option value="0">U</option>
+                    </select>
+                `;
+                courseContainer.appendChild(courseDiv);
+            }
+
+            var calculateButton = document.createElement("button");
+            calculateButton.textContent = "Calculate GPA";
+            calculateButton.onclick = function() {
+                calculateSemesterGPA(semesterIndex);
+            };
+            courseContainer.appendChild(calculateButton);
+        }
+
+        function calculateSemesterGPA(semesterIndex) {
+            var numCoursesSemester = parseInt(document.getElementById("numCoursesSemester" + semesterIndex).value);
+            var totalCredits = 0;
+            var totalGradePoints = 0;
+            var hasArrear = false;
+
+            for (var i = 1; i <= numCoursesSemester; i++) {
+                var credit = parseInt(document.getElementById(`creditSemester${semesterIndex}_${i}`).value);
+                var grade = parseFloat(document.getElementById(`gradeSemester${semesterIndex}_${i}`).value);
+
+                if (grade === 0) {
+                    hasArrear = true;
+                    break;
+                }
+
+                totalCredits += credit;
+                totalGradePoints += credit * grade;
+            }
+
+            if (hasArrear) {
+                var resultContainer = document.getElementById("resultContainer" + semesterIndex);
+                resultContainer.innerHTML = `
+                    <h2>Semester ${semesterIndex} GPA: Nil</h2>
+                    <h2>Cumulative CGPA up to Semester ${semesterIndex} : Nil</h2>
+                `;
+                alert("You have an arrear in Semester " + semesterIndex);
+                return;
+            }
+
+            var semesterGPA = totalCredits > 0 ? totalGradePoints / totalCredits : 0;
+
+            var resultContainer = document.getElementById("resultContainer" + semesterIndex);
+            resultContainer.innerHTML = `
+                <h2>Semester ${semesterIndex} GPA : ${semesterGPA.toFixed(2)}</h2>
+            `;
+
+            var cumulativeCredits = 0;
+            var cumulativeGradePoints = 0;
+            for (var j = 1; j <= semesterIndex; j++) {
+                var semesterCredits = parseInt(document.getElementById(`numCoursesSemester${j}`).value);
+                var semesterGPA = parseFloat(document.getElementById(`resultContainer${j}`).querySelector('h2').textContent.split(": ")[1]);
+                cumulativeCredits += semesterCredits;
+                cumulativeGradePoints += semesterGPA * semesterCredits;
+            }
+            var cumulativeCGPA = cumulativeCredits > 0 ? cumulativeGradePoints / cumulativeCredits : 0;
+            resultContainer.innerHTML += `
+                <h2>CGPA up to Semester ${semesterIndex} : ${cumulativeCGPA.toFixed(2)}</h2>
+            `;
+        }
+    </script>
+</body>
+</html>

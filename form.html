@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FORM</title>
+    <script src="backend.js"></script>
+    <style>
+        .Form{
+    width:600px;
+    height:610px;
+    border-radius:25px;
+    box-shadow: 1px 1px 20px 1px;
+    display: flex;
+    flex-direction: column;
+}
+.body{
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 100px;
+    color: aliceblue;
+}
+.Form_container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: space-around;
+    padding-left:10%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Form_name{
+    display: flex;
+    justify-content: space-around;
+}
+.Form_age{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 50px;
+}
+.Form_Dep{
+    display: flex;
+    justify-content: space-around;
+    gap:30px;
+    padding-left: 30px;
+}
+.dob{
+    display: flex;
+    justify-content: space-around;
+    padding-right: 60px;    
+}
+.gen{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+}
+.mail{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 30px;
+}
+.add{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10px;
+}
+.btn{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+    padding-top: 20px;
+
+}
+.s_btt{
+    background-color: green;
+    border-radius:20px;
+    color:aliceblue;
+    width: 70px;
+    transition: background-color 1s;  
+}
+button.s_btt:hover{
+    background-color: darkgreen;
+    cursor: pointer;
+}
+.r_btt{
+    background-color: blue;
+    border-radius:20px;
+    color: aliceblue;
+    width: 60px;
+    transition: background-color 1s;      
+}
+button.r_btt:hover{
+    background-color: darkblue;
+    cursor: pointer;    
+}
+.lan{
+    display: flex;
+    justify-content: space-around;
+}
+#eye{
+color: palevioletred;
+}
+.pass{
+    padding-left: 25px;
+    gap: 40px;
+    display: flex;
+    justify-content: space-around;
+}
+    </style>
+</head>
+<body class="body" style="background-image:url('https://wallpapercave.com/wp/wp5502431.jpg');background-attachment: fixed;background-repeat: no-repeat;background-size: cover;">
+    <form onsubmit="sub()">
+        <div class="Form">
+            <div class="Form_container">
+                <h1>FORM:</h1>
+                <img src="https://cdn.vectorstock.com/i/1000v/15/32/colorful-profile-picture-placeholder-icon-vector-42411532.avif" style="width: 100px;height: 100px;border-radius: 100%;">
+                <div class="Form_name">
+                    <label>First Name:</label>
+                    <input input="text" maxlength="15" id="fname" name="firstname" class="in" onkeydown="return /[A-Za-z]/.test(event.key)">
+                </div>       
+                <div class="Form_name">
+                    <label>Last Name:</label>
+                    <input input="text" id="lname"maxlength="15" name="lastname" class="in" onkeydown="return /[A-Za-z]/.test(event.key)">
+                </div>
+                <div class="Form_age">
+                    <label>Age:</label>
+                    <input type="text" id="age"  name="Age" value="15" onkeydown="return /[0-9]/.test(event.key)||event.key === 'Backspace'" min="0" max="120" class="in" >
+                </div>
+                <div class="Form_Dep">
+                    <label>Department:</label>
+                    <select id="dept" name="Department" class="in" >
+                        <option selected hidden></option>
+                        <option value="cse">Computer Science and Engineering</option>
+                        <option value="it">Information Technology</option>
+                        <option value="csd">Computer Science design</option>
+                    </select>
+                </div>
+                <div class="dob">
+                    <label>Date of birth:</label>
+                    <input type="date" name="Date of birth"  id="dob"class="in" >
+                </div>
+                <div class="gen">
+                    <label>Gender:</label>
+                    <div>
+                        <label>Male</label>
+                        <input type="radio" name="gen" checked>
+                        <label>Female</label>
+                        <input type="radio" name="gen">
+                    </div>
+                </div>
+                <div class="mail">
+                    <label>Phone:</label>
+                    <input type="text" id="phone"class="in" name="Phone number">
+                </div>
+                <div class="mail">
+                    <label>Email:</label>
+                    <input type="text" name="email" placeholder="email" id="email"class="in" >
+                </div>
+                <div class="pass">
+                    <label>Password:</label>
+                    <div>
+                    <input type="password" id="p"class="in" name="Password">
+                    <i class="fa-solid fa-eye" onclick="fun()" id="eye"></i>
+                    </div>
+                </div>
+                <div class="add">
+                    <label>address:</label>
+                    <textarea id="add"class="in" name="address"></textarea>
+                </div>
+                <div class="lan">
+                    <label>language:</label>
+                    <div>
+                        <input type="checkbox" class="check">Java
+                        <input type="checkbox" class="check">C                    
+                        <input type="checkbox" class="check">C++
+                    </div>
+                </div>
+                <div class="btn">
+                    <button type="submit" class="s_btt" id="submit" onclick="formvalid()">submit</button>
+                    <button type="reset" class="r_btt">clear</button>
+                </div>                            
+            </div>
+        </div>
+    </form>
+    <script>
+        function sub(){
+    window.alert("Form is sumitted successfully");
+}
+function fun(){
+    if(document.getElementById("eye").className=="fa-solid fa-eye"){
+        document.getElementById("eye").className="fa-solid fa-eye-slash";
+    }
+    else{
+        document.getElementById("eye").className="fa-solid fa-eye";
+    }
+    if(document.getElementById("p").type=="password"){
+        document.getElementById("p").type="text"; 
+    }
+    else{
+        document.getElementById("p").type="password";
+    }
+}
+function formvalid(){
+    c=0;
+    a=document.getElementsByClassName('in');
+    for( i of a){
+        if (!Notnull(i)){
+            c=1;
+            break;
+        }
+    }
+    if(c==0){
+        if(Numch(document.getElementById("phone"))&&isValidEmail(document.getElementById("email"))&&isvalidDob()&&isvalidpass()){
+            if(check(document.getElementsByClassName("check"))){
+                document.getElementById("submit").type="submit";
+            }
+            else{
+                document.getElementById("submit").type="button";
+            }
+        }
+        else{
+            document.getElementById("submit").type="button";
+        }
+    }
+    else{
+        document.getElementById("submit").type="button"; 
+    }
+}
+function Notnull(element){
+    if(element.value==""){
+        window.alert("please fill the "+element.name);
+        return false;
+    }
+    return true;
+}
+function check(ch){
+    for( i of ch){
+        if (i.checked){
+            return true;
+        }
+    }
+    window.alert("please choose any language")
+    return false;
+}
+function Numch(element){
+            a=element.value;
+            if(isNaN(a)||a.length!=10){
+                window.alert("Fill the correct phone number format");
+                return false;
+            }
+            return true;
+}
+function isValidEmail(element) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (element && element.value && emailPattern.test(element.value)) {
+        return true; 
+    } else {
+        window.alert("please fill the email in correct format");
+        return false; 
+    }
+}
+function isvalidDob(){
+    a=parseInt(document.getElementById("age").value);
+    b=document.getElementById("dob").value;
+    d=new Date();
+    cy=parseInt(d.getFullYear());
+    y=parseInt(b)
+    if(cy-y==a){
+        return true;
+    }
+    else{
+        window.alert("Year and age are mismatched");
+        return false;
+    }
+}
+function isvalidpass(){
+    var pattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+={}[\]:;<>,.?/~]).{8,}$/;
+
+    if(pattern.test(document.getElementById("p").value)){
+        return true;
+    }
+    else{
+        window.alert("Password must contain a Capital letter and atleast one number and symbol and minimum length 8")
+        return false;
+    }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+.Form{
+    width:600px;
+    height:610px;
+    border-radius:25px;
+    box-shadow: 1px 1px 20px 1px;
+    display: flex;
+    flex-direction: column;
+}
+.body{
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 100px;
+    color: aliceblue;
+}
+.Form_container{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: space-around;
+    padding-left:10%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.Form_name{
+    display: flex;
+    justify-content: space-around;
+}
+.Form_age{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 50px;
+}
+.Form_Dep{
+    display: flex;
+    justify-content: space-around;
+    gap:30px;
+    padding-left: 30px;
+}
+.dob{
+    display: flex;
+    justify-content: space-around;
+    padding-right: 60px;    
+}
+.gen{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 20px;
+}
+.mail{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 30px;
+}
+.add{
+    display: flex;
+    justify-content: space-around;
+    padding-left: 10px;
+}
+.btn{
+    display: flex;
+    gap:10px;
+    justify-content: center;
+    padding-top: 20px;
+
+}
+.s_btt{
+    background-color: green;
+    border-radius:20px;
+    color:aliceblue;
+    width: 70px;
+    transition: background-color 1s;  
+}
+button.s_btt:hover{
+    background-color: darkgreen;
+    cursor: pointer;
+}
+.r_btt{
+    background-color: blue;
+    border-radius:20px;
+    color: aliceblue;
+    width: 60px;
+    transition: background-color 1s;      
+}
+button.r_btt:hover{
+    background-color: darkblue;
+    cursor: pointer;    
+}
+.lan{
+    display: flex;
+    justify-content: space-around;
+}
+#eye{
+color: palevioletred;
+}
+.pass{
+    padding-left: 25px;
+    gap: 30px;
+    display: flex;
+    justify-content: space-around;
+}
